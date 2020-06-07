@@ -20,8 +20,12 @@ class EmojiMemoryGame: ObservableObject {
         })
     }
     
+    init() {
+        model.cards.shuffle()
+    }
+    
     var cards: [MemoryGame<String>.Card] {
-        return model.cards.shuffled()
+        return model.cards
     }
     
     func choose(card: MemoryGame<String>.Card) {
