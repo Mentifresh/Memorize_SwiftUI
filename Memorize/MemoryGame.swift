@@ -11,8 +11,11 @@ import Foundation
 struct MemoryGame<CardContent> {
     var cards: Array<Card>
     
-    func choose(card: Card) {
+    mutating func choose(card:  Card) {
         print("Card chosen: \(card)")
+        if let chosenIndex = self.index(of: card) {
+            self.cards[chosenIndex].isFaceUp = !self.cards[chosenIndex].isFaceUp
+        }
     }
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
@@ -29,5 +32,12 @@ struct MemoryGame<CardContent> {
         var isMatched: Bool = false
         var content: CardContent
         var id: Int
+    }
+    
+    func index(of card: Card) -> Int? {
+        for index in 0..<self.cards.count where self.cards[index].id == card.id {
+            return index
+        }
+        return nil
     }
 }
